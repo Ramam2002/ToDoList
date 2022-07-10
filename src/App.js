@@ -5,7 +5,7 @@ import Main from "./components/table/Main";
 function App() {
   return (
     <Grommet full>
-      <Box margin="xlarge" border>
+      <Box margin="large">
         <Main/>
       </Box>
     </Grommet>

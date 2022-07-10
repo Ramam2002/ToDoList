@@ -9,6 +9,8 @@ function EditForm(props) {
   const [sta, setSta] = useState("Pending");
   const [pri, setPri] = useState(props.prior);
 
+  // const data = JSON.parse(localStorage.getItem('todosdata'));
+
   const handleChange = e => {
     var s = e.value;
     setInput3(s.substring(0,10));
@@ -34,7 +36,7 @@ function EditForm(props) {
   };
 
   const handleCancel = () => {
-    props.onSubmit({});
+    props.onSubmit({status: "cancel"});
   }
 
   return (

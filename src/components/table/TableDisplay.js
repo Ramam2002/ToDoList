@@ -64,8 +64,8 @@ const TableDisplay = ({ todos, completeTodo, removeTodo, updateTodo }) => {
 
   return (
     <Box>
-    <Card style={{minHeight: "30vh"}} background="aliceblue" margin="small" border overflow="scroll">
-      <BTable {...getTableProps()} class="table table-bordered table-hover table-light">
+    <Card style={{minHeight: "30vh", minWidth: "320px"}} margin="small" border overflow="scroll">
+      <BTable {...getTableProps()} class="table table-bordered table-hover table-striped">
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -96,16 +96,17 @@ const TableDisplay = ({ todos, completeTodo, removeTodo, updateTodo }) => {
               <td> 
                 <Box direction='row' >
                   <TiTrash
+                    style={{cursor: "pointer"}}
                     size={28}
                     onClick={() => removeTodo(row.cells[0].value)}
                     className='delete-icon'
                   />
                   {(row.cells[4].value === "Completed") ? (
-                    <TiTick size={30}/>
+                    <TiTick style={{cursor: "pointer"}} size={30}/>
                   ) : (
                     <>
-                      <TiEdit size={28} onClick={() => setEdit({ id: row.cells[0].value, task: row.cells[1].value, desc: row.cells[2].value, due: row.cells[3].value, status: row.cells[4].value, prior: row.cells[5].value })}/>
-                      {/* <TiTimesOutline onClick={() => completeTodo(row.cells[0].value)} size={30}/> */}
+                      <TiEdit size={28} style={{cursor: "pointer"}} onClick={() => setEdit({ id: row.cells[0].value, task: row.cells[1].value, desc: row.cells[2].value, due: row.cells[3].value, status: row.cells[4].value, prior: row.cells[5].value })}/>
+                      <TiTimesOutline style={{cursor: "pointer"}} onClick={() => completeTodo(row.cells[0].value)} size={30}/>
                     </>
                   )}
                 </Box>
@@ -115,6 +116,7 @@ const TableDisplay = ({ todos, completeTodo, removeTodo, updateTodo }) => {
         })}
       </tbody>
     </BTable>
+      {(data.length > 0) ? (<Box></Box>) : ( <Box alignSelf='center' justify='center' pad="small"> No Tasks !!! </Box> )}
    </Card>
     <Box direction='row' margin="small" justify='evenly'>
         <Button onClick={() => previousPage()} disabled={!canPreviousPage} label="Prev" />

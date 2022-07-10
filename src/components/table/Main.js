@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Button, Heading } from 'grommet';
 import TableDisplay from './TableDisplay';
 import TableForm from './TableForm';
@@ -7,7 +7,12 @@ import TableForm from './TableForm';
 import { ResponsiveContext } from "grommet/contexts";
 
 function Main() {
-  const [todos, setTodos] = useState([ {"id":"0","task":"test-task-1", "desc": "test-1-desc", "status": "Completed", "due": "2022-07-31", "prior": "1-High"}, {"id":"1","task":"test-task-2", "desc": "test-2-desc", "status": "Pending", "due": "2022-08-01", "prior": '3-Low'} ]);
+  // const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todosdata') || "[]"));
+  useEffect(() => {
+    localStorage.setItem('todosdata', JSON.stringify(todos))
+  }, [todos]);
+
   // const [show, setShow] = useState(false);
   // const handleClose = () => setShow(false);
   const size = useContext(ResponsiveContext);
@@ -21,7 +26,9 @@ function Main() {
   }
 
   const updateTodo = (todoId, newValue) => {
-    if(newValue.length > 0 && newValue.task.length > 0) setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
+    if(newValue.status === "cancel") return;
+    newValue.id = todoId;
+    setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
   };
 
   const removeTodo = (id) => {
@@ -30,6 +37,7 @@ function Main() {
   };
 
   const completeTodo = (id) => {
+    // const temp = JSON.parse(localStorage.getItem('todosdata'));
     let updatedTodos = todos.map(todo => {
       if (todo.id === id) {
         todo.status = "Completed";
@@ -70,7 +78,7 @@ function Main() {
         </Modal.Body>
       </Modal> */}
       <TableForm onSubmit={addTodo}/>
-      <TableDisplay todos={todos} removeTodo={removeTodo} updateTodo={updateTodo}/>
+      <TableDisplay todos={todos} removeTodo={removeTodo} updateTodo={updateTodo} completeTodo={completeTodo}/>
     </Box>
     )}
     {/* </ResponsiveContext> */}

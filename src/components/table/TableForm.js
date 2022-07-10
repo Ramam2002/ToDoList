@@ -38,22 +38,26 @@ function TableForm(props) {
       <Form>
         <Card pad="medium" margin="small" border>
           <TextInput
+            size='small'
             placeholder='Add a todo'
             value={input1}
             onChange={(e) => setInput1(e.target.value)}
           />
           <TextInput
+            size='small'
             placeholder='Add description'
             value={input2}
             onChange={(e) => setInput2(e.target.value)}
           />
           <DateInput
+            size='small'
             format='yyyy/mm/dd'
             value={input3}
             onChange={handleChange}
             calenderProps={{size: "small"}}
           />
           <Menu
+            size='small'
             label="Status"
             items={[
               { label: 'Completed', onClick: () => {setSta("Completed")} },
@@ -61,6 +65,7 @@ function TableForm(props) {
             ]}
           />
           <Menu
+            size='small'
             label="Priority"
             items={[
               { label: 'High Priority', onClick: () => {setPri('1-High')} },
